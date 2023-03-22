@@ -53,6 +53,8 @@ public class ConfigParams extends TreeMap<String, Object> {
 		VALIDPARAMS.put(Config.SUHOOR_ALERT, Integer.class);
 		VALIDPARAMS.put(Config.NOT_CONFIGURED, Integer.class);
 		VALIDPARAMS.put(Config.JUMAAH_SETTING, Integer.class);
+		VALIDPARAMS.put(Config.EVENT_STATUS, Integer.class);
+		VALIDPARAMS.put(Config.NUMBER_OF_MONTHS_SETTING, Integer.class);
 		VALIDPARAMS.put(Config.EVENT_END, Integer.class);
 	}
 
@@ -140,7 +142,7 @@ public class ConfigParams extends TreeMap<String, Object> {
 		log.fine("cookie: " + toString());
 		Cookie cookie = new Cookie("CONFIG", toString());
 		cookie.setPath("/");
-		cookie.setMaxAge(6 * 30 * 24 * 60 * 60);
+		cookie.setMaxAge(2147483647);
 		response.addCookie(cookie);
 		return this;
 	}

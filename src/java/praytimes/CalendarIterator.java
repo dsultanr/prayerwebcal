@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class CalendarIterator implements Iterator<Calendar>, Iterable<Calendar> {
 
-	public static final int DAYS_MAX = 3 * 30;
+	public int DAYS_MAX = 3 * 30;
 	private Calendar cal;
 	private int dayCount = 0;
 

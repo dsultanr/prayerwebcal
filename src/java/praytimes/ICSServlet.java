@@ -70,7 +70,9 @@ public class ICSServlet extends HttpServlet {
 
 		int n = 1;
 		int quranPage = 0;
-		for (Calendar date : new CalendarIterator()) {
+                CalendarIterator calendarIterator = new CalendarIterator();
+                calendarIterator.DAYS_MAX = cfg.getNumberOfMonthsSetting() * 30;
+		for (Calendar date : calendarIterator) {
 			OffsetDateTime today = date.toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime();
 
 			try {
@@ -163,7 +165,7 @@ public class ICSServlet extends HttpServlet {
 		event.getProperties().add(new XProperty("UID", today.format(PrayEvent.DATEID) + "-Quran@prayerwebcal.dsultan.com"));
 		event.getProperties().add(new Categories("Todo"));
 		event.getProperties().add(new XProperty("X-GOOGLE-CALENDAR-CONTENT-TITLE", eventName));
-		event.getProperties().add(new XProperty("X-MICROSOFT-CDO-BUSYSTATUS:FREE", "FREE"));
+		event.getProperties().add(new XProperty("X-MICROSOFT-CDO-BUSYSTATUS", "FREE"));
 		event.getProperties().add(new Url(new URI("http://quranunlocked.com/pg/" + pg)));
 		event.getStartDate().setUtc(true);
 		event.getEndDate().setUtc(true);

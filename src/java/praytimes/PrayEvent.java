@@ -21,7 +21,6 @@ import net.fortuna.ical4j.model.property.Action;
 import net.fortuna.ical4j.model.property.Categories;
 import net.fortuna.ical4j.model.property.Clazz;
 import net.fortuna.ical4j.model.property.Description;
-import net.fortuna.ical4j.model.property.Location;
 import net.fortuna.ical4j.model.property.RRule;
 import net.fortuna.ical4j.model.property.Transp;
 import net.fortuna.ical4j.model.property.Url;
@@ -133,7 +132,7 @@ public class PrayEvent implements Comparable<PrayEvent> {
 
 	public String getName() {
             String prayEventName = type.name();
-            if (prayEventName.equals("Dhuhr") && getDayOfWeek() == "FRIDAY" && cfg.getJumaahSetting() == 1) {
+            if (prayEventName.equals("Dhuhr") && getDayOfWeek().equals("FRIDAY") && cfg.getJumaahSetting() == 1) {
                 return "Jumaah";
             } else {
                 return prayEventName;
@@ -366,10 +365,17 @@ public class PrayEvent implements Comparable<PrayEvent> {
 		LocalDateTime time = startTime.toLocalDateTime().minusMinutes(cfg.getTZDSTOffset());
 //		String eventName = type.getEmojiName() + " " + startTime.format(TIME).toLowerCase();
 		String eventName = type.getEmojiName();
+                if (eventName.equals("Dhuhr") && getDayOfWeek().equals("FRIDAY") && cfg.getJumaahSetting() == 1) {
+                    eventName = "Jumaah";
+                }
+
                 LocalDateTime endTime;
                 try
                 {
                     switch (cfg.getEventEnd()) {
+                        case 0:
+                            endTime = time.plusMinutes(0);
+                            break;
                         case 1:
                             endTime = time.plusMinutes(20);
                             break;
@@ -401,14 +407,18 @@ public class PrayEvent implements Comparable<PrayEvent> {
 		event.getProperties().add(
 				new XProperty("UID", startTime.format(DATEID) + "-" + type.name().toUpperCase() + "@prayerwebcal.dsultan.com"));
 		event.getProperties().add(new XProperty("X-GOOGLE-CALENDAR-CONTENT-TITLE", eventName));
-		event.getProperties().add(new XProperty("X-MICROSOFT-CDO-BUSYSTATUS", "FREE"));
+                if (cfg.getEventStatus() == 0) {
+                    event.getProperties().add(new XProperty("X-MICROSOFT-CDO-BUSYSTATUS", "FREE"));
+                } else {
+                    event.getProperties().add(new XProperty("X-MICROSOFT-CDO-BUSYSTATUS", "BUSY"));
+                }
 		event.getStartDate().setUtc(true);
 		event.getEndDate().setUtc(true);
 		try {
 			event.getProperties().add(new RRule("FREQ=YEARLY"));
 		} catch (ParseException e) {
 		}
-		event.getProperties().add(new Location(cfg.getLocation()));
+//		event.getProperties().add(new Location(cfg.getLocation()));
 		try {
 			String description = "";
 			if (type == Type.Fajr) {
@@ -430,7 +440,11 @@ public class PrayEvent implements Comparable<PrayEvent> {
 		if (reminder) {
 			VAlarm alarm = new VAlarm(new Dur(0, 0, 0, 0));
 			alarm.getProperties().add(Action.DISPLAY);
-			alarm.getProperties().add(new Description("Time for " + type.toString()));
+                        if (eventName.equals("Jumaah")) {
+                            alarm.getProperties().add(new Description("Time for " + eventName));
+                        } else {
+                            alarm.getProperties().add(new Description("Time for " + type.toString()));
+                        }
 			event.getAlarms().add(alarm);
 		}
 		return event;

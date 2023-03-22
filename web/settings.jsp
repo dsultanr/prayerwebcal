@@ -257,6 +257,7 @@
 			<div class="pl-4 row">
                             <label class="form-text text-muted">Calendar event end time</label>
                             <select class="form-control form-control-sm" name="ee">
+                              <option value="0"<%=cfg.getEventEnd()==0 ? "selected" : "" %>>0 minutes</option>
                               <option value="1"<%=cfg.getEventEnd()==1 ? "selected" : "" %>>20 minutes</option>
                               <option value="2"<%=cfg.getEventEnd()==2 ? "selected" : "" %>>30 minutes</option>
                               <option value="3"<%=cfg.getEventEnd()==3 ? "selected" : "" %>>40 minutes</option>
@@ -265,6 +266,22 @@
                               <!--<option value="0"<%=cfg.getEventEnd()==0 ? "selected" : "" %>>No adjustment</option>-->
                             </select>
                         </div>
+
+			<div class="d-flex w-100 justify-content-within">
+				<label>Number of months to export to calendar</label>
+				<input name="nm" id="nm" type="range" class="custom-range" min="3" max="12" step="1" value="<%=cfg.getNumberOfMonthsSetting()%>" oninput="setSliderValue('nm')">
+				<label><span class="nm-value">3</span>&nbsp;months.</label>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Mark the Event as Free or Busy in calendar
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Free</label>
+					<input name="es" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getEventStatus()%>">
+					<label class="toggle-switch-on">Busy</label>
+				</div>
+			</div>
 
 			<p class="text-center mt-3 mb-5">
 				<button role="button" class="btn btn-primary btn-lg"><i class="fas fa-check-circle"></i>&nbsp; Save</button>
@@ -424,6 +441,7 @@
 		setSliderValue('mo');
 		setSliderValue('io');
 		setSliderValue('so');
+		setSliderValue('nm');
 						
 	</script>
 

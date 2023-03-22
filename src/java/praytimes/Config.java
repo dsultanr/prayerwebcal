@@ -41,7 +41,7 @@ public class Config {
 	}
 
 	public enum EventEndOption {
-		TwentyMinutes, ThirtyMinutes, FourtyMinutes, PreferEnd
+		ZeroMinutes, TwentyMinutes, ThirtyMinutes, FourtyMinutes, PreferEnd
 	}
 
 	private static final Logger log = Logger.getLogger(Config.class.getName());
@@ -74,6 +74,8 @@ public class Config {
 	public static final String TAHAJJUD_ALERT = "ct"; // int
 	public static final String SUHOOR_ALERT = "csu"; // int
 	public static final String JUMAAH_SETTING = "js"; // int
+	public static final String EVENT_STATUS = "es"; // int
+	public static final String NUMBER_OF_MONTHS_SETTING = "nm"; // int
 	public static final String EVENT_END = "ee"; // int
 	public static final ConfigParams DEFAULTS = new ConfigParams();
 	static {
@@ -102,6 +104,8 @@ public class Config {
 		DEFAULTS.put(TAHAJJUD_ALERT, 1);
 		DEFAULTS.put(SUHOOR_ALERT, 1);
 		DEFAULTS.put(JUMAAH_SETTING, 0);
+		DEFAULTS.put(EVENT_STATUS, 0);
+		DEFAULTS.put(NUMBER_OF_MONTHS_SETTING, 3);
 		DEFAULTS.put(EVENT_END, 1);
 		DEFAULTS.put(NOT_CONFIGURED, 1);
 	}
@@ -156,6 +160,8 @@ public class Config {
 		setOffsets(getOffsets());
 		setSuhoorOffset(getSuhoorOffset());
 		setJumaahSetting(getJumaahSetting());
+		setEventStatus(getEventStatus());
+		setNumberOfMonthsSetting(getNumberOfMonthsSetting());
 		setEventEnd(getEventEnd());
 
 		log.fine("cfg: " + params.toString() + ", factory:" + factory.toString());
@@ -421,8 +427,26 @@ public class Config {
 		return params.getInteger(JUMAAH_SETTING);
 	}
 
+	public Integer getEventStatus() {
+		return params.getInteger(EVENT_STATUS);
+	}
+
+	public Integer getNumberOfMonthsSetting() {
+		return params.getInteger(NUMBER_OF_MONTHS_SETTING);
+	}
+
 	private Config setJumaahSetting(Integer value) {
 		params.put(JUMAAH_SETTING, value);
+		return this;
+	}
+
+	private Config setEventStatus(Integer value) {
+		params.put(EVENT_STATUS, value);
+		return this;
+	}
+
+	private Config setNumberOfMonthsSetting(Integer value) {
+		params.put(NUMBER_OF_MONTHS_SETTING, value);
 		return this;
 	}
 

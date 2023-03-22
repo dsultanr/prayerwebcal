@@ -64,9 +64,10 @@ public class PrayTimeFactory {
 	private int OneSeventh; // 1/7th of night
 	private int AngleBased; // angle/60th of night
 	// Adjusting Event end
+        private int ZeroMinutes; // 0 minutes
 	private int TwentyMinutes; // 20 minutes
-	private int ThirtyMinutes; // 20 minutes
-	private int FourtyMinutes; // 20 minutes
+	private int ThirtyMinutes; // 30 minutes
+	private int FourtyMinutes; // 40 minutes
 	private int PreferEnd; // Preferred end time
 	// Time Formats
 	private int Time24; // 24-hour format
@@ -119,6 +120,7 @@ public class PrayTimeFactory {
 		this.setOneSeventh(2); // 1/7th of night
 		this.setAngleBased(3); // angle/60th of night
 
+                this.setZeroMinutes(0); // 0 minutes
 		this.setTwentyMinutes(1); // 20 minutes
 		this.setThirtyMinutes(2); // 30 minutes
 		this.setFourtyMinutes(3); // 40 minutes
@@ -906,6 +908,10 @@ public class PrayTimeFactory {
 
 	private void setAngleBased(int angleBased) {
 		AngleBased = angleBased;
+	}
+
+	private void setZeroMinutes(int zeroMinutes) {
+		ZeroMinutes = zeroMinutes;
 	}
 
 	private void setTwentyMinutes(int twentyMinutes) {
