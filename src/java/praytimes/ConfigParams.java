@@ -53,6 +53,7 @@ public class ConfigParams extends TreeMap<String, Object> {
 		VALIDPARAMS.put(Config.SUHOOR_ALERT, Integer.class);
 		VALIDPARAMS.put(Config.NOT_CONFIGURED, Integer.class);
 		VALIDPARAMS.put(Config.JUMAAH_SETTING, Integer.class);
+		VALIDPARAMS.put(Config.ISHA_RAMADAN_SETTING, Integer.class);
 		VALIDPARAMS.put(Config.EVENT_STATUS, Integer.class);
 		VALIDPARAMS.put(Config.NUMBER_OF_MONTHS_SETTING, Integer.class);
 		VALIDPARAMS.put(Config.EVENT_END, Integer.class);

@@ -246,11 +246,21 @@
 			<h6 class="mt-3">Miscellaneous</h6>
 			<div class="pl-4 row">
 				<label class="pr-2">
-				  Name Jumaah instead of Dhuhr on Fridays
+				  Jumaah on Fridays
 				</label>
 				<div class="ml-auto">
 					<label class="toggle-switch-off">Off</label>
 					<input name="js" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getJumaahSetting()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Isha delay on Ramadan
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="id" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getIshaRamadanSetting()%>">
 					<label class="toggle-switch-on">On</label>
 				</div>
 			</div>

@@ -74,6 +74,7 @@ public class Config {
 	public static final String TAHAJJUD_ALERT = "ct"; // int
 	public static final String SUHOOR_ALERT = "csu"; // int
 	public static final String JUMAAH_SETTING = "js"; // int
+	public static final String ISHA_RAMADAN_SETTING = "id"; // int
 	public static final String EVENT_STATUS = "es"; // int
 	public static final String NUMBER_OF_MONTHS_SETTING = "nm"; // int
 	public static final String EVENT_END = "ee"; // int
@@ -104,6 +105,7 @@ public class Config {
 		DEFAULTS.put(TAHAJJUD_ALERT, 1);
 		DEFAULTS.put(SUHOOR_ALERT, 1);
 		DEFAULTS.put(JUMAAH_SETTING, 0);
+		DEFAULTS.put(ISHA_RAMADAN_SETTING, 0);
 		DEFAULTS.put(EVENT_STATUS, 0);
 		DEFAULTS.put(NUMBER_OF_MONTHS_SETTING, 3);
 		DEFAULTS.put(EVENT_END, 1);
@@ -160,6 +162,7 @@ public class Config {
 		setOffsets(getOffsets());
 		setSuhoorOffset(getSuhoorOffset());
 		setJumaahSetting(getJumaahSetting());
+		setIshaRamadanSetting(getIshaRamadanSetting());
 		setEventStatus(getEventStatus());
 		setNumberOfMonthsSetting(getNumberOfMonthsSetting());
 		setEventEnd(getEventEnd());
@@ -427,6 +430,10 @@ public class Config {
 		return params.getInteger(JUMAAH_SETTING);
 	}
 
+	public Integer getIshaRamadanSetting() {
+		return params.getInteger(ISHA_RAMADAN_SETTING);
+	}
+
 	public Integer getEventStatus() {
 		return params.getInteger(EVENT_STATUS);
 	}
@@ -437,6 +444,11 @@ public class Config {
 
 	private Config setJumaahSetting(Integer value) {
 		params.put(JUMAAH_SETTING, value);
+		return this;
+	}
+
+	private Config setIshaRamadanSetting(Integer value) {
+		params.put(ISHA_RAMADAN_SETTING, value);
 		return this;
 	}
 

@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.chrono.HijrahDate;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
@@ -363,6 +364,10 @@ public class PrayEvent implements Comparable<PrayEvent> {
 
 	public VEvent toEvent(int quranPage) throws Exception {
 		LocalDateTime time = startTime.toLocalDateTime().minusMinutes(cfg.getTZDSTOffset());
+                String hijraMonthName = DateTimeFormatter.ofPattern("MMMM").format(HijrahDate.from(time));
+                if (cfg.getIshaRamadanSetting() == 1 && hijraMonthName.equals("Ramadan")) {
+                    time = time.plusMinutes(30);
+                }
 //		String eventName = type.getEmojiName() + " " + startTime.format(TIME).toLowerCase();
 		String eventName = type.getEmojiName();
                 if (eventName.equals("Dhuhr") && getDayOfWeek().equals("FRIDAY") && cfg.getJumaahSetting() == 1) {
