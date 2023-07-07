@@ -190,6 +190,80 @@
 			</div>
 
 			<hr />
+			<h6 class="mt-3">Hide/show events on site</h6>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Sunrise on site
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="srs" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getSunriseShow()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Sunset on site
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="ss" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getSunsetShow()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Qiyam on site
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="qs" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getQiyamShow()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Tahajjud on site
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="ts" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getTahajjudShow()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Suhoor on site
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="sus" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getSuhoorShow()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Location on site
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="ls" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getLocationShow()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Help on site
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="hs" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getHelpShow()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+
+
+			<hr />
 			<h6 class="mt-3">Hide/show events in calendar</h6>
 			<div class="pl-4 row">
 				<label class="pr-2">
@@ -238,6 +312,59 @@
 				<div class="ml-auto">
 					<label class="toggle-switch-off">Off</label>
 					<input name="csu" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getSuhoorAlert()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+
+			<hr />
+			<h6 class="mt-3">Hide/show prayers in calendar</h6>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Fajr alert in calendar
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="fa" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getFajrAlert()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Dhuhr alert in calendar
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="da" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getDhuhrAlert()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Asr alert in calendar
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="aa" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getAsrAlert()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Maghrib alert in calendar
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="ma" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getMaghribAlert()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Show Isha alert in calendar
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="ia" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getIshaAlert()%>">
 					<label class="toggle-switch-on">On</label>
 				</div>
 			</div>

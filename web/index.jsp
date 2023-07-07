@@ -140,7 +140,9 @@
         <div class="header">
         	<div class="d-flex w-100 justify-content-between">
 	            <div class="header__title">
-	            	<h1 class="">Prayer Times <%=cfg.getLocation()%></h1>
+	            	<% if (cfg.getLocationShow() == 1) { %>
+                            <h1 class="">Prayer Times <%=cfg.getLocation()%></h1>
+                        <% } %>
 	                <h3 class="header__title__date"><%=HijrahDate.from(now).format(PrayEvent.DATE)%></h3>
 	                <p class="header__title__text"><%=now.format(PrayEvent.DATE) + " " + now.format(PrayEvent.TIME).toLowerCase()%></p>
 	            </div>
@@ -154,6 +156,8 @@
 					</div>
 	            </div>
             </div>
+                    <% if (cfg.getLocationShow() == 1) { %>
+
 			<div class="header__search header__title__loc">
 				<a href="/search.jsp?query=<%=cfg.getLocation()%>">
 	                <h4 class="header__title__subtitle" title="(<%=cfg.getLatitude()%>&deg;,<%=cfg.getLongitude()%>&deg;)">
@@ -166,6 +170,7 @@
                                     <div class="w-100"><i class="fa fa-list"></i> Select location from the list</div>
                                 </a>
 			</div>
+                    <% } %>
         </div>
 
 		<%
@@ -193,6 +198,16 @@
 								|| prayer.getType() == PrayEvent.Type.Suhoor)
 							continue;
 					}
+                                        if (prayer.getType() == PrayEvent.Type.Sunset && cfg.getSunsetShow() == 0)
+                                                continue;
+                                        if (prayer.getType() == PrayEvent.Type.Sunrise && cfg.getSunriseShow() == 0)
+                                                continue;
+                                        if (prayer.getType() == PrayEvent.Type.Qiyam && cfg.getQiyamShow() == 0)
+                                                continue;
+                                        if (prayer.getType() == PrayEvent.Type.Tahajjud && cfg.getTahajjudShow() == 0)
+                                                continue;
+                                        if (prayer.getType() == PrayEvent.Type.Suhoor && cfg.getSuhoorShow() == 0)
+                                                continue;                                        
 					boolean activePrayer = prayer.isActive(now);
 					String active = activePrayer ? "active": "";
 			%>
@@ -331,7 +346,7 @@
 				}
 			%>
 		</ul>
-		
+            <% if (cfg.getHelpShow() == 1) { %>		
 		<div class="pl-3 pr-3">
 					
 			<p class="mt-3 mb-3">
@@ -360,8 +375,8 @@
 			<p><a href="https://quranunlocked.com">Read the Quran daily and hold fast the Message of God.</a></p>
 			<p><a href="https://www.facebook.com/prayerwebcal">Prayerwebcal on Facebook</a></p>
 						
-	</div>
-				
+                </div>
+            <% } %>		
 	</main>
     <script type="text/javascript">
         var ics_path = window.location.protocol + "//" + window.location.host + '/<%=cfg.getICSPath()%>'

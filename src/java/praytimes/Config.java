@@ -73,6 +73,18 @@ public class Config {
 	public static final String QIYAM_ALERT = "cq"; // int
 	public static final String TAHAJJUD_ALERT = "ct"; // int
 	public static final String SUHOOR_ALERT = "csu"; // int
+	public static final String SUNSET_SHOW = "ss"; // int
+	public static final String SUNRISE_SHOW = "srs"; // int
+	public static final String QIYAM_SHOW = "qs"; // int
+	public static final String TAHAJJUD_SHOW = "ts"; // int
+	public static final String SUHOOR_SHOW = "sus"; // int
+	public static final String LOCATION_SHOW = "ls"; // int
+	public static final String HELP_SHOW = "hs"; // int
+	public static final String FAJR_ALERT = "fa"; // int
+	public static final String DHUHR_ALERT = "da"; // int
+	public static final String ASR_ALERT = "aa"; // int
+	public static final String MAGHRIB_ALERT = "ma"; // int
+	public static final String ISHA_ALERT = "ia"; // int
 	public static final String JUMAAH_SETTING = "js"; // int
 	public static final String ISHA_RAMADAN_SETTING = "id"; // int
 	public static final String EVENT_STATUS = "es"; // int
@@ -104,6 +116,18 @@ public class Config {
 		DEFAULTS.put(QIYAM_ALERT, 1);
 		DEFAULTS.put(TAHAJJUD_ALERT, 1);
 		DEFAULTS.put(SUHOOR_ALERT, 1);
+		DEFAULTS.put(SUNSET_SHOW, 1);
+		DEFAULTS.put(SUNRISE_SHOW, 1);
+		DEFAULTS.put(QIYAM_SHOW, 1);
+		DEFAULTS.put(TAHAJJUD_SHOW, 1);
+		DEFAULTS.put(SUHOOR_SHOW, 1);
+		DEFAULTS.put(LOCATION_SHOW, 1);
+		DEFAULTS.put(HELP_SHOW, 1);
+		DEFAULTS.put(FAJR_ALERT, 1);
+		DEFAULTS.put(DHUHR_ALERT, 1);
+		DEFAULTS.put(ASR_ALERT, 1);
+		DEFAULTS.put(MAGHRIB_ALERT, 1);
+		DEFAULTS.put(ISHA_ALERT, 1);
 		DEFAULTS.put(JUMAAH_SETTING, 0);
 		DEFAULTS.put(ISHA_RAMADAN_SETTING, 0);
 		DEFAULTS.put(EVENT_STATUS, 0);
@@ -159,6 +183,18 @@ public class Config {
 		setQiyamAlert(getQiyamAlert());
 		setTahajjudAlert(getTahajjudAlert());
 		setSuhoorAlert(getSuhoorAlert());
+		setSunsetShow(getSunsetShow());
+		setSunriseShow(getSunriseShow());
+		setQiyamShow(getQiyamShow());
+		setTahajjudShow(getTahajjudShow());
+		setSuhoorShow(getSuhoorShow());
+		setLocationShow(getLocationShow());
+		setHelpShow(getHelpShow());
+		setFajrAlert(getFajrAlert());
+		setDhuhrAlert(getDhuhrAlert());
+		setAsrAlert(getAsrAlert());
+		setMaghribAlert(getMaghribAlert());
+		setIshaAlert(getIshaAlert());
 		setOffsets(getOffsets());
 		setSuhoorOffset(getSuhoorOffset());
 		setJumaahSetting(getJumaahSetting());
@@ -425,6 +461,115 @@ public class Config {
 		params.put(SUHOOR_ALERT, value);
 		return this;
 	}
+
+	public Integer getSunsetShow() {
+		return params.getInteger(SUNSET_SHOW);
+	}
+
+	public Integer getSunriseShow() {
+		return params.getInteger(SUNRISE_SHOW);
+	}
+
+	private Config setSunsetShow(Integer value) {
+		params.put(SUNSET_SHOW, value);
+		return this;
+	}
+
+	private Config setSunriseShow(Integer value) {
+		params.put(SUNRISE_SHOW, value);
+		return this;
+	}
+
+	public Integer getQiyamShow() {
+		return params.getInteger(QIYAM_SHOW);
+	}
+
+	private Config setQiyamShow(Integer value) {
+		params.put(QIYAM_SHOW, value);
+		return this;
+	}
+
+	public Integer getTahajjudShow() {
+		return params.getInteger(TAHAJJUD_SHOW);
+	}
+
+	private Config setTahajjudShow(Integer value) {
+		params.put(TAHAJJUD_SHOW, value);
+		return this;
+	}
+
+	public Integer getSuhoorShow() {
+		return params.getInteger(SUHOOR_SHOW);
+	}
+
+	private Config setSuhoorShow(Integer value) {
+		params.put(SUHOOR_SHOW, value);
+		return this;
+	}
+
+	public Integer getLocationShow() {
+		return params.getInteger(LOCATION_SHOW);
+	}
+
+	private Config setLocationShow(Integer value) {
+		params.put(LOCATION_SHOW, value);
+		return this;
+	}
+
+	public Integer getHelpShow() {
+		return params.getInteger(HELP_SHOW);
+	}
+
+	private Config setHelpShow(Integer value) {
+		params.put(HELP_SHOW, value);
+		return this;
+	}
+
+	public Integer getFajrAlert() {
+		return params.getInteger(FAJR_ALERT);
+	}
+
+	private Config setFajrAlert(Integer value) {
+		params.put(FAJR_ALERT, value);
+		return this;
+	}
+
+	public Integer getDhuhrAlert() {
+		return params.getInteger(DHUHR_ALERT);
+	}
+
+	private Config setDhuhrAlert(Integer value) {
+		params.put(DHUHR_ALERT, value);
+		return this;
+	}
+
+	public Integer getAsrAlert() {
+		return params.getInteger(ASR_ALERT);
+	}
+
+	private Config setAsrAlert(Integer value) {
+		params.put(ASR_ALERT, value);
+		return this;
+	}
+
+	public Integer getMaghribAlert() {
+		return params.getInteger(MAGHRIB_ALERT);
+	}
+
+	private Config setMaghribAlert(Integer value) {
+		params.put(MAGHRIB_ALERT, value);
+		return this;
+	}
+
+	public Integer getIshaAlert() {
+		return params.getInteger(ISHA_ALERT);
+	}
+
+	private Config setIshaAlert(Integer value) {
+		params.put(ISHA_ALERT, value);
+		return this;
+	}
+
 
 	public Integer getJumaahSetting() {
 		return params.getInteger(JUMAAH_SETTING);

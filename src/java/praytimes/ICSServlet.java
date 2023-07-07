@@ -143,6 +143,16 @@ public class ICSServlet extends HttpServlet {
 					continue;
 				if (prayer.getType() == PrayEvent.Type.Suhoor && cfg.getSuhoorAlert() == 0)
 					continue;
+				if (prayer.getType() == PrayEvent.Type.Fajr && cfg.getFajrAlert() == 0)
+					continue;
+				if (prayer.getType() == PrayEvent.Type.Dhuhr && cfg.getDhuhrAlert() == 0)
+					continue;
+				if (prayer.getType() == PrayEvent.Type.Asr && cfg.getAsrAlert() == 0)
+					continue;
+				if (prayer.getType() == PrayEvent.Type.Maghrib && cfg.getMaghribAlert() == 0)
+					continue;
+				if (prayer.getType() == PrayEvent.Type.Isha && cfg.getIshaAlert() == 0)
+					continue;
 				if (prayer.getNextEvent() != null && prayer.getStartTime().isEqual(prayer.getNextEvent().getStartTime()))
 					continue;
 				if (prayer.getType() == PrayEvent.Type.EndingEvent || prayer.getType() == PrayEvent.Type.InvalidEvent)

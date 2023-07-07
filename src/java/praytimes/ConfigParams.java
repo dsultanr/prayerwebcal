@@ -51,6 +51,18 @@ public class ConfigParams extends TreeMap<String, Object> {
 		VALIDPARAMS.put(Config.QIYAM_ALERT, Integer.class);
 		VALIDPARAMS.put(Config.TAHAJJUD_ALERT, Integer.class);
 		VALIDPARAMS.put(Config.SUHOOR_ALERT, Integer.class);
+		VALIDPARAMS.put(Config.SUNSET_SHOW, Integer.class);
+		VALIDPARAMS.put(Config.SUNRISE_SHOW, Integer.class);
+		VALIDPARAMS.put(Config.QIYAM_SHOW, Integer.class);
+		VALIDPARAMS.put(Config.TAHAJJUD_SHOW, Integer.class);
+		VALIDPARAMS.put(Config.SUHOOR_SHOW, Integer.class);
+		VALIDPARAMS.put(Config.LOCATION_SHOW, Integer.class);
+		VALIDPARAMS.put(Config.HELP_SHOW, Integer.class);
+		VALIDPARAMS.put(Config.FAJR_ALERT, Integer.class);
+		VALIDPARAMS.put(Config.DHUHR_ALERT, Integer.class);
+		VALIDPARAMS.put(Config.ASR_ALERT, Integer.class);
+		VALIDPARAMS.put(Config.MAGHRIB_ALERT, Integer.class);
+		VALIDPARAMS.put(Config.ISHA_ALERT, Integer.class);
 		VALIDPARAMS.put(Config.NOT_CONFIGURED, Integer.class);
 		VALIDPARAMS.put(Config.JUMAAH_SETTING, Integer.class);
 		VALIDPARAMS.put(Config.ISHA_RAMADAN_SETTING, Integer.class);
