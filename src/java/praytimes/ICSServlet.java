@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.sql.Date;
+import java.time.DayOfWeek;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -141,8 +142,16 @@ public class ICSServlet extends HttpServlet {
 					continue;
 				if (prayer.getType() == PrayEvent.Type.Tahajjud && cfg.getTahajjudAlert() == 0)
 					continue;
-				if (prayer.getType() == PrayEvent.Type.Suhoor && cfg.getSuhoorAlert() == 0)
-					continue;
+				if (prayer.getType() == PrayEvent.Type.Suhoor) {
+                                    if (cfg.getSuhoorAlert() == 0) {
+                                        continue;
+                                    } else if (cfg.getSuhoorAlert() == 2) {
+                                        if (prayer.getStartTime().getDayOfWeek() != DayOfWeek.MONDAY && prayer.getStartTime().getDayOfWeek() != DayOfWeek.THURSDAY) {
+                                            continue;
+                                        }
+                                    }
+                                }
+					
 				if (prayer.getType() == PrayEvent.Type.Fajr && cfg.getFajrAlert() == 0)
 					continue;
 				if (prayer.getType() == PrayEvent.Type.Dhuhr && cfg.getDhuhrAlert() == 0)

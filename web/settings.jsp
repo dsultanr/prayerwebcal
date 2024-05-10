@@ -305,15 +305,10 @@
 					<label class="toggle-switch-on">On</label>
 				</div>
 			</div>
-			<div class="pl-4 row">
-				<label class="pr-2">
-				  Show Suhoor alert in calendar
-				</label>
-				<div class="ml-auto">
-					<label class="toggle-switch-off">Off</label>
-					<input name="csu" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getSuhoorAlert()%>">
-					<label class="toggle-switch-on">On</label>
-				</div>
+			<div class="d-flex w-100 justify-content-within">
+				<label>Suhoor</label>
+				<input name="csu" id="csu" type="range" class="custom-range" min="0" max="2" step="1" value="<%=cfg.getSuhoorAlert()%>" oninput="setSliderValue('csu')">
+				<label style="min-width: 4rem"><span class="csu-value">Off</span></label>
 			</div>
 
 			<hr />
@@ -476,7 +471,21 @@
 		}
 		
 		function setSliderValue(id) {
-			$('.' + id + '-value').text($('#' + id).val());
+			if (id === 'csu') {
+                            switch ($('#' + id).val()) {
+                                case '0':
+                                    $('.' + id + '-value').text('Off');
+                                    break;
+                                case '1':
+                                    $('.' + id + '-value').text('On');
+                                    break;
+                                case '2':
+                                    $('.' + id + '-value').text('Mon/Thu');
+                                    break;
+                            }
+                        } else {
+                            $('.' + id + '-value').text($('#' + id).val());
+                        }
 			getTimesMini();
 		}
 		
@@ -579,6 +588,7 @@
 		setSliderValue('io');
 		setSliderValue('so');
 		setSliderValue('nm');
+		setSliderValue('csu');
 						
 	</script>
 
