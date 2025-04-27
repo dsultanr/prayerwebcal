@@ -331,7 +331,7 @@
 	        			}
 
 	            %>
-	            	<div class="events__item__desc__text"><a href="http://quranunlocked.com/pg/<%=quranPage%>">Today's Quran Reading: Page <%=quranPage%></a></div>
+	            	<div class="events__item__desc__text"><a href="https://quran.com/page/<%=quranPage%>">Today's Quran Reading: Page <%=quranPage%></a></div>
 	            	<div class="events__item__desc__text">Fast today <%=PrayEvent.getFastingDuration(fajr, maghrib)%> long</div>
                 <%
 	            	}
@@ -372,7 +372,7 @@
 			</ul>
 
 			<h2>Unlock the Quran!</h2>
-			<p><a href="https://quranunlocked.com">Read the Quran daily and hold fast the Message of God.</a></p>
+			<p><a href="https://quran.com">Read the Quran daily and hold fast the Message of God.</a></p>
 			<p><a href="https://www.facebook.com/prayerwebcal">Prayerwebcal on Facebook</a></p>
 						
                 </div>

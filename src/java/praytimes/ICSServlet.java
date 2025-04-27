@@ -185,7 +185,7 @@ public class ICSServlet extends HttpServlet {
 		event.getProperties().add(new Categories("Todo"));
 		event.getProperties().add(new XProperty("X-GOOGLE-CALENDAR-CONTENT-TITLE", eventName));
 		event.getProperties().add(new XProperty("X-MICROSOFT-CDO-BUSYSTATUS", "FREE"));
-		event.getProperties().add(new Url(new URI("http://quranunlocked.com/pg/" + pg)));
+		event.getProperties().add(new Url(new URI("https://quran.com/page/" + pg)));
 		event.getStartDate().setUtc(true);
 		event.getEndDate().setUtc(true);
 		event.getProperties().add(new RRule("FREQ=YEARLY"));

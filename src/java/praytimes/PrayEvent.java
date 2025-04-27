@@ -428,7 +428,7 @@ public class PrayEvent implements Comparable<PrayEvent> {
 			String description = "";
 			if (type == Type.Fajr) {
 				event.getProperties().add(new Url(new URI("https://prayerwebcal.dsultan.com" + cfg.getPath())));
-				description += "Daily Quran: http://quranunlocked.com/pg/" + quranPage;
+				description += "Daily Quran: https://quran.com/page/" + quranPage;
 			}
 			if (type.getEventType() == Event.MandatoryPrayer) {
 				event.getProperties().add(new Categories("Prayer"));

@@ -78,54 +78,94 @@
     <script src="/res/popper.min.js"></script>
     <script src="/res/bootstrap.min.js"></script>
     <script src="/res/axios.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDamF5CNh-zCpptxxU-iceihfn8L4t1E00&libraries=places"></script>
+    <script>
+      (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.googleapis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+        key: "AIzaSyBNz393sQh34sDpfOQ4V9bscDYADOjwLkY",
+        v: "weekly",
+        // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+        // Add other bootstrap parameters as needed, using camel case.
+      });
+    </script>
+
 	<script>
 	
-		function search() {
-			var service = new google.maps.places.PlacesService(new google.maps.Map(document.getElementById('map')));
-			var q = $('#query').val();
-			if (q.trim().match(/[a-zA-Z]/)) {
-				$('.search-button').html('<i class="fas fa-spinner fa-pulse"></i>');
-				service.textSearch({
-						query: q,
-						type: 'locality'
-					}, showResults);
-			} else
-				console.log('not searching ' + query);
+		async function search() {
+                    const { Place } = await google.maps.importLibrary("places");
+                    
+                    const request = {
+                      textQuery: $('#query').val(),
+                      fields: ["displayName", "location", "addressComponents"],
+                      includedType: "locality",
+                    };
+
+                    $('.search-button').html('<i class="fas fa-spinner fa-pulse"></i>');
+                    const { places } = await Place.searchByText(request);
+  
+//                    const { places } = await Place.searchByText(request);
+
+                    if (places.length) {
+                      console.log(places);
+
+                      const { LatLngBounds } = await google.maps.importLibrary("core");
+                      const bounds = new LatLngBounds();
+
+                      // Loop through and get all the results.
+                      places.forEach((place) => {
+                        console.log("findPlaces",place.displayName,place.location.lat(),place.location.lng());
+                        showResults(place);
+                      });
+                      
+                    } else {
+                      console.log("No results");
+                        $(".list-group").append(
+                                '<div class="list-group-item city-item">'
+                                + '<p class="mb-1 city-item-country">Cannot find this location</p>'
+                                + '</div>'
+                        );
+                    }
+			
+//                        var service = new google.maps.places.PlacesService(new google.maps.Map(document.getElementById('map')));
+//			var q = $('#query').val();
+//			if (q.trim().match(/[a-zA-Z]/)) {
+//				$('.search-button').html('<i class="fas fa-spinner fa-pulse"></i>');
+//				service.textSearch({
+//						query: q,
+//						type: 'locality'
+//					}, showResults);
+//			} else
+//				console.log('not searching ' + query);
 		}
 		
-		function showResults(results, status) {
+		function showResults(place) {
 			$('.search-button').html('<i class="fa fa-search"></i>');
 			$('.search-results').show();
 			$(".list-group").html("");
-			$.each(results, function(index, item) {
-				var geo = item.geometry.location;
-				var x = Math.round(geo.lat() * 1000) / 1000.
-				var y = Math.round(geo.lng() * 1000) / 1000.
-				$(".list-group").append(
-					'<a href="#" onclick="save('
-							+ '\'' + item.name + ', ' + item.formatted_address + '\''
-							+ ',' + x
-							+ ',' + y
-							+ ');" class="list-group-item list-group-item-action city-item">'
-					+ '<div class="d-flex w-100 justify-content-between">'
-					+ '   <h5 class="mb-1 name city-item-name">' + item.name + '</h5>'
-					+ '   <i class="fas fa-location-arrow"></i>'
-					+ '</div>'
-					+ '<p class="mb-1 city-item-country">'
-							+ item.formatted_address
-							+ '<br>' + x + '&deg N, ' + y + '&deg E'
-					+ '</p>'
-					+ '</a>'
-				);
-			})
-			if (results.length == 0) {
-				$(".list-group").append(
-					'<div class="list-group-item city-item">'
-					+ '<p class="mb-1 city-item-country">Cannot find this location</p>'
-					+ '</div>'
-				);
-			}
+                        var geo = place.location;
+                        var x = Math.round(geo.lat() * 1000) / 1000.
+                        var y = Math.round(geo.lng() * 1000) / 1000.
+                        var formatted_address = "";
+                        place.addressComponents.forEach((addressComponent) => {
+                            if (addressComponent.Eg[0] == "locality" || addressComponent.Eg[0] == "country" || addressComponent.Eg[0].indexOf("administrative_area") !== -1)
+                            formatted_address += addressComponent.Fg + " ";
+                        });
+
+                        $(".list-group").append(
+                                '<a href="#" onclick="save('
+                                                + '\'' + place.displayName + ', ' + formatted_address + '\''
+                                                + ',' + x
+                                                + ',' + y
+                                                + ');" class="list-group-item list-group-item-action city-item">'
+                                + '<div class="d-flex w-100 justify-content-between">'
+                                + '   <h5 class="mb-1 name city-item-name">' + place.displayName + '</h5>'
+                                + '   <i class="fas fa-location-arrow"></i>'
+                                + '</div>'
+                                + '<p class="mb-1 city-item-country">'
+                                                + formatted_address
+                                                + '<br>' + x + '&deg N, ' + y + '&deg E'
+                                + '</p>'
+                                + '</a>'
+                        );
+                            
 		}
 var geocoder;
 
