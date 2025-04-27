@@ -89,52 +89,60 @@
 
 	<script>
 	
-		async function search() {
-                    const { Place } = await google.maps.importLibrary("places");
-                    
-                    const request = {
-                      textQuery: $('#query').val(),
-                      fields: ["displayName", "location", "addressComponents"],
-                      includedType: "locality",
-                    };
+            async function search() {
+                let query = $('#query').val().trim();
+                if (!query) return;
 
-                    $('.search-button').html('<i class="fas fa-spinner fa-pulse"></i>');
-                    const { places } = await Place.searchByText(request);
-  
-//                    const { places } = await Place.searchByText(request);
+                $(".search-button").html('<i class="fas fa-spinner fa-pulse"></i>');
 
-                    if (places.length) {
-                      console.log(places);
+                try {
+                    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=\${encodeURIComponent(query)}&format=json&addressdetails=1&limit=5`);
 
-                      const { LatLngBounds } = await google.maps.importLibrary("core");
-                      const bounds = new LatLngBounds();
+                    const places = await response.json();
 
-                      // Loop through and get all the results.
-                      places.forEach((place) => {
-                        console.log("findPlaces",place.displayName,place.location.lat(),place.location.lng());
-                        showResults(place);
-                      });
-                      
-                    } else {
-                      console.log("No results");
-                        $(".list-group").append(
-                                '<div class="list-group-item city-item">'
-                                + '<p class="mb-1 city-item-country">Cannot find this location</p>'
-                                + '</div>'
-                        );
+                    $(".list-group").html("");
+                    $(".search-results").show();
+
+                    if (!places.length) {
+                        $(".list-group").append('<div class="list-group-item list-group-item-action disabled">Cannot find this location</div>');
+                        $(".search-button").html('<i class="fas fa-search"></i>');
+                        return;
                     }
-			
-//                        var service = new google.maps.places.PlacesService(new google.maps.Map(document.getElementById('map')));
-//			var q = $('#query').val();
-//			if (q.trim().match(/[a-zA-Z]/)) {
-//				$('.search-button').html('<i class="fas fa-spinner fa-pulse"></i>');
-//				service.textSearch({
-//						query: q,
-//						type: 'locality'
-//					}, showResults);
-//			} else
-//				console.log('not searching ' + query);
-		}
+
+                    places.forEach((place) => {
+                        console.log(place)
+                        let addressType = place.addresstype
+//                        let displayName = place.address.amenity || place.address.city || place.address.town || place.address.village || place.address.state || "Unknown";
+                        let displayName = place.address[place.addresstype] || "Unknown"
+                        let country = place.address.country || "";
+//                        let formattedAddress = `\${country}`.trim();
+                        let formattedAddress = place.display_name;
+
+                        let lat = parseFloat(place.lat);
+                        let lon = parseFloat(place.lon);
+
+                        let x = Math.round(lat * 1000) / 1000;
+                        let y = Math.round(lon * 1000) / 1000;
+
+                        $(".list-group").append(`
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center city-item"
+                               onclick="save('\${displayName}', \${x}, \${y});">
+                               <div>
+                                  <h5 class="mb-1 name city-item-name">\${displayName}</h5>
+                                  <p class="mb-1 city-item-country">\${formattedAddress}<br>\${x}° N, \${y}° E</p>
+                               </div>
+                               <i class="fas fa-location-arrow"></i>
+                            </a>
+                        `);
+                    });
+
+                } catch (error) {
+                    console.error(error);
+                    $(".list-group").html('<div class="list-group-item list-group-item-action disabled">Error loading locations</div>');
+                } finally {
+                    $(".search-button").html('<i class="fas fa-search"></i>');
+                }
+            }  
 		
 		function showResults(place) {
 			$('.search-button').html('<i class="fa fa-search"></i>');
@@ -151,7 +159,7 @@
 
                         $(".list-group").append(
                                 '<a href="#" onclick="save('
-                                                + '\'' + place.displayName + ', ' + formatted_address + '\''
+                                                + '\'' + place.displayName  + '\''
                                                 + ',' + x
                                                 + ',' + y
                                                 + ');" class="list-group-item list-group-item-action city-item">'
@@ -195,22 +203,71 @@ function codeLatLng(lat, lng) {
     }
   });
 }
-		function save(l, x, y) {
-			$('.search-button').html('<i class="fas fa-spinner fa-pulse"></i>');
-			var tz = "America/New_York";
-                            $.getJSON(
-			    	'/timezone?x='
-		    		+ x + '&y=' + y
-		    		+'&timestamp=' + new Date().getTime() / 1000.
-					+'&key=AIzaSyDamF5CNh-zCpptxxU-iceihfn8L4t1E00', 
-					function(data) {
-//			    		console.log(JSON.stringify(data));
-			    		tz = data.timeZoneId;
-	  				}).done(function() {
-	  					var url = 'save.jsp?l=' + l + '&x=' + x + '&y=' + y + '&tz=' + tz;
-	  					window.location = url;
-	  				});
-		}
+
+async function fetchWithTimeout(resource, options = {}) {
+    const { timeout = 5000 } = options; // 5000 мс = 5 секунд таймаут
+
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+
+    const response = await fetch(resource, {
+        ...options,
+        signal: controller.signal
+    });
+
+    clearTimeout(id);
+    return response;
+}
+
+    async function save(l, x, y) {
+    $(".search-button").html('<i class="fas fa-spinner fa-pulse"></i>');
+
+    let tz = "America/New_York"; // дефолт
+
+    try {
+        let success = false;
+
+        try {
+            const geoResponse = await fetchWithTimeout(`https://api.geonames.org/timezoneJSON?lat=\${x}&lng=\${y}&username=dsultanr`, { timeout: 5000 });
+            const geoData = await geoResponse.json();
+
+            if (geoData && geoData.timezoneId) {
+                tz = geoData.timezoneId;
+                success = true;
+            }
+        } catch (e) {
+            console.warn("GeoNames failed:", e);
+        }
+
+        if (!success) {
+            try {
+                const tzdbResponse = await fetchWithTimeout(`https://api.timezonedb.com/v2.1/get-time-zone?key=TXX5G17GA9J9&format=json&by=position&lat=\${x}&lng=\${y}`, { timeout: 5000 });
+                const tzdbData = await tzdbResponse.json();
+
+                if (tzdbData && tzdbData.zoneName) {
+                    tz = tzdbData.zoneName;
+                    success = true;
+                }
+            } catch (e) {
+                console.warn("TimeZoneDB failed:", e);
+            }
+        }
+
+        if (!success) {
+            alert("Can't find Timezone for " + l);
+            return;
+        }
+
+    } catch (error) {
+        console.error("Unexpected error in save():", error);
+        alert("Can't find Timezone for " + l);
+        return;
+    }
+
+    const url = `save.jsp?l=\${encodeURIComponent(l)}&x=\${x}&y=\${y}&tz=\${encodeURIComponent(tz)}`;
+    window.location = url;
+}
+
 
 		$("input[type='search']").on("click", function () {
 			   $(this).select();

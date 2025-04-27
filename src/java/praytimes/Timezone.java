@@ -2,11 +2,11 @@ package praytimes;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,38 +22,38 @@ public class Timezone extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
+        String timeZoneId = "America/New_York"; // default
 
-        String timeZoneId = "America/New_York"; // Значение по умолчанию
         double lat = NumberUtils.toDouble(request.getParameter("x"), 0.0);
         double lon = NumberUtils.toDouble(request.getParameter("y"), 0.0);
 
         if (lat == 0.0 || lon == 0.0) {
-            response.getWriter().write("{\"error\": \"Invalid coordinates\"}");
+            response.getWriter().write("{\"error\":\"Invalid coordinates\"}");
             return;
         }
 
-        String apiUrl = "https://maps.googleapis.com/maps/api/timezone/json"
-                      + "?location=" + lat + "," + lon
-                      + "&timestamp=" + System.currentTimeMillis() / 1000L
-                      + "&key=AIzaSyAqdQs__cSP8PvVmOygcflxZs5Pd1xfmEA";
+        String username = "dsultanr"; // TODO: Указать свой username на GeoNames.org
+        String apiUrl = String.format("http://api.geonames.org/timezoneJSON?lat=%f&lng=%f&username=%s", lat, lon, username);
 
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(apiUrl).openConnection();
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Accept", "application/json");
+            URL url = new URL(apiUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(3000);
+            conn.setReadTimeout(3000);
 
-            if (connection.getResponseCode() == 200) { // Проверяем успешный статус
-                try (InputStream responseStream = connection.getInputStream()) {
-                    JsonObject json = Json.createReader(responseStream).readObject();
-                    timeZoneId = json.getString("timeZoneId", timeZoneId);
+            if (conn.getResponseCode() == 200) {
+                try (InputStream in = conn.getInputStream();
+                    JsonReader reader = Json.createReader(in)) {
+                    JsonObject json = reader.readObject();
+                    timeZoneId = json.getString("timezoneId", timeZoneId);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        response.getWriter().write("{\"timeZoneId\": \"" + timeZoneId + "\"}");
+        response.getWriter().write("{\"timeZoneId\":\"" + timeZoneId + "\"}");
     }
 }
