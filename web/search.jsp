@@ -41,7 +41,7 @@
         %>
 		<div class="pl-3 pr-3">
 			<form id="search" method="get" action="/search.jsp">
-				<small class="form-text text-muted">Enter name of city to search</small>
+				<small class="form-text text-muted">Enter name of city to search or <a href="#" onclick="detect_position()">Detect from browser</a></small>
 				<div class="input-group">
 					<input required type="search" name="query" id="query" class="pl-1 pr-1 form-control"
 						placeholder="Search city..." value="<%=query%>" />
@@ -60,9 +60,9 @@
 		
 		<div id="map" class="d-none"></div>
 		
-		<div class="text-center mt-3">
+<!--		<div class="text-center mt-3">
 			<img title="Powered by Google" src="/res/powered_by_google_on_white.png" />
-		</div>
+		</div>-->
 	
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-10540377-3"></script>
@@ -78,14 +78,14 @@
     <script src="/res/popper.min.js"></script>
     <script src="/res/bootstrap.min.js"></script>
     <script src="/res/axios.min.js"></script>
-    <script>
+<!--    <script>
       (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.googleapis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
         key: "AIzaSyBNz393sQh34sDpfOQ4V9bscDYADOjwLkY",
         v: "weekly",
         // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
         // Add other bootstrap parameters as needed, using camel case.
       });
-    </script>
+    </script>-->
 
 	<script>
 	
@@ -275,7 +275,46 @@ async function fetchWithTimeout(resource, options = {}) {
 		$("input[type='search']").focus();
 		
 		search();
-		
+
+function detect_position() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            async function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                console.log(position.coords);
+
+                try {
+                    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=\${lat}&lon=\${lon}&zoom=10&addressdetails=1`);
+                    const data = await response.json();
+
+                    let addressType = data.addresstype
+//                        let displayName = place.address.amenity || place.address.city || place.address.town || place.address.village || place.address.state || "Unknown";
+                    let city = data.address[data.addresstype] || "Unknown"
+
+
+//                    let city = data.address.city || data.address.town || data.address.village || data.address.state || "";
+                    if (city) {
+                        $("#query").val(city);
+                        search(); // Автоматически запустить поиск
+                    }
+                } catch (e) {
+                    console.error("Failed to fetch location name:", e);
+                }
+            },
+            function(error) {
+                console.warn("Geolocation error:", error);
+                // Просто не заполняем автоматически — пользователь вводит вручную
+            },
+            {
+                timeout: 5000
+            }
+        );
+    }
+}
+
+                		
 	</script>
 </body>
 </html>
