@@ -414,8 +414,10 @@ public class PrayEvent implements Comparable<PrayEvent> {
 		event.getProperties().add(new XProperty("X-GOOGLE-CALENDAR-CONTENT-TITLE", eventName));
                 if (cfg.getEventStatus() == 0) {
                     event.getProperties().add(new XProperty("X-MICROSOFT-CDO-BUSYSTATUS", "FREE"));
+                    event.getProperties().add(Transp.TRANSPARENT);
                 } else {
                     event.getProperties().add(new XProperty("X-MICROSOFT-CDO-BUSYSTATUS", "BUSY"));
+                    event.getProperties().add(Transp.OPAQUE);
                 }
 		event.getStartDate().setUtc(true);
 		event.getEndDate().setUtc(true);
@@ -441,7 +443,6 @@ public class PrayEvent implements Comparable<PrayEvent> {
 		} catch (Exception e) {
 		}
 		event.getProperties().add(Clazz.PUBLIC);
-		event.getProperties().add(Transp.TRANSPARENT);
 		if (reminder) {
 			VAlarm alarm = new VAlarm(new Dur(0, 0, 0, 0));
 			alarm.getProperties().add(Action.DISPLAY);
