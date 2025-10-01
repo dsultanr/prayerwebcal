@@ -1,0 +1,40 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+*.pyc
+
+.DS_Store
+.AppleDouble
+.LSOverride
+*.bak
+
+node_modules
+.vscode
+
+# Logs
+*.log
+
+# Claude Code
+.claude

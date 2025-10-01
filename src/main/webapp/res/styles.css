@@ -1,0 +1,232 @@
+/* 20180528 */
+body {
+	max-width: 30rem;
+	margin: 1rem auto;
+	color: #666;
+	background-color: #ebeff2;
+	font-size: 1rem;
+}
+
+.fa, .fas {
+	color: inherit;
+	text-decoration: none;
+}
+
+.fa:hover, .fas:hover {
+	color: #4489fe;
+}
+
+h1 {
+	font-size: 1.5rem;
+}
+
+h2 {
+	font-size: 1.1rem;
+}
+
+.header {
+	margin: 0 auto 1rem auto;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.header__title, .header__title h1, .header__title h2, .header__title h3, .header__title__date {
+	font-size: 1.15rem;
+	margin-bottom: auto;
+	font-weight: 600;
+}
+
+.header__title__text, .header__title p, .header__title h4, .header__title__loc, .header__title__loc h4 {
+	font-size: 0.95rem;
+	font-weight: normal;
+	margin-bottom: auto;
+	color: #888;
+}
+
+.header__settings {
+	text-align: right !important;
+}
+
+.header__settings__icon {
+	font-size: 1.25rem;
+}
+
+.events {
+	margin: 0.75rem auto;
+	color: #666;
+	padding-left: 0;
+}
+
+.events__item, .events__item.active {
+	display: block;
+	width: 95%;
+	margin: 0 auto;
+	background-color: white;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 1px solid #ddd;
+	border-top-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+	padding: 0.5rem 1rem 0.5rem 1rem;
+	list-style: none;
+}
+
+.events__item.active {
+	padding: 0.5rem 1.6rem 0.5rem 1.6rem;
+}
+
+.events__item:last-child {
+	border-bottom: 0;
+}
+
+.events__item.active {
+	color: white;
+	width: 100%;
+	background-color: #4489fe;
+}
+
+.events__item-NonPrayer.active {
+	background-color: #b0b0b0;
+}
+
+.events__item__desc .cfg {
+	font-size: 0.75rem;
+	color: #008e00;
+}
+
+.active .events__item__desc .cfg {
+	color: #ebeff2;
+}
+
+.events__item__desc .cfg:before {
+	content: '(';
+}
+
+.events__item__desc .cfg:after {
+	content: ')';
+}
+
+.event__item__desc {
+	margin: auto 0 auto;
+}
+
+.events__item__desc__title {
+	font-size: 1.2rem;
+}
+
+.events__item-NonPrayer .events__item__desc__title {
+	font-size: 0.85rem;
+}
+
+.events__item-NonPrayer.active .events__item__desc__title {
+	font-size: 1.2rem;
+}
+
+.events__item__desc__subtitle {
+	font-size: 0.85rem;
+	color: #888;
+}
+
+.active .events__item__desc__subtitle {
+	color: #ebeff2; /* light blue */
+}
+
+.events__item__desc__text, .events__item__desc__highlight {
+	font-size: 0.75rem;
+	color: #888;
+	font-weight: normal;
+}
+
+.events__item__desc__highlight {
+	color: #4489fe;
+	font-weight: bold;
+}
+
+.events__item-NonPrayer .events__item__desc__highlight {
+	font-weight: 400;
+}
+
+.active .events__item__desc_title {
+	color: white;
+}
+
+.active .events__item__desc__text {
+	color: #ebeff2; /* light blue */
+}
+
+.active .events__item__desc__text {
+	font-weight: normal;
+}
+
+.events__item__icon {
+	text-align: right !important;
+}
+
+.events__item__icon svg {
+	fill: #666 !important;
+	width: 50px;
+}
+
+.events__item-NonPrayer .events__item__icon svg {
+	width: 35px;
+	margin-right: 7px;
+}
+
+.events__item-NonPrayer.active .events__item__icon svg {
+	width: 50px;
+	margin-right: auto;
+}
+	
+.events__item__icon.active svg {
+	fill: white !important;
+}
+
+label {
+	margin-top: 5px;
+	font-size: 0.75rem;
+}
+
+label.form-text, .d-flex label {
+	margin-top: 0.75rem;
+	margin-bottom: 0;
+	font-size: 0.75rem;
+	min-width: 3rem;
+	text-align: left;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.d-flex label {
+	margin-left: 0.5rem;
+}
+
+.d-flex input+label {
+	text-align: right;
+}
+
+.toggle-switch,
+.toggle-switch-on,
+.toggle-switch-off {
+	width: 2rem;
+}
+
+.toggle-switch-off {
+	text-align: right;
+	padding-right: 3px;
+}
+
+.toggle-switch-on {
+	text-align: left;
+	padding-left: 3px;
+}
+
+.d-flex input[type="range"] {
+	margin-top: 0.75rem;
+}
+
+.prayers-preview small {
+	font-size: 0.6rem;
+}
