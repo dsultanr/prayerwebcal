@@ -514,9 +514,41 @@ public class PrayEvent implements Comparable<PrayEvent> {
             return getHijrahDate().get(ChronoField.DAY_OF_MONTH);
         }
 
+        public int getHijriMonth() {
+            return getHijrahDate().get(ChronoField.MONTH_OF_YEAR);
+        }
+
         public boolean isWhiteDay() {
             int d = getHijriDayOfMonth();
             return d >= 13 && d <= 15;
+        }
+
+        public boolean isRamadan() {
+            return getHijriMonth() == 9;
+        }
+
+        /**
+         * Recommended fasting days outside of Ramadan, Monday/Thursday and the white days:
+         * Ashura (9-10 Muharram), the first nine days of Dhul Hijjah (Arafah being the 9th)
+         * and the six days of Shawwal (2-7, right after Eid al-Fitr).
+         */
+        public boolean isSunnahFastingDay() {
+            int m = getHijriMonth();
+            int d = getHijriDayOfMonth();
+            if (m == 1 && (d == 9 || d == 10))
+                return true;
+            if (m == 12 && d >= 1 && d <= 9)
+                return true;
+            if (m == 10 && d >= 2 && d <= 7)
+                return true;
+            return false;
+        }
+
+        /** Fasting is not allowed on either Eid or the days of Tashriq (11-13 Dhul Hijjah). */
+        public boolean isForbiddenFastingDay() {
+            int m = getHijriMonth();
+            int d = getHijriDayOfMonth();
+            return (m == 10 && d == 1) || (m == 12 && d >= 10 && d <= 13);
         }
 
         public boolean isMondayOrThursday() {

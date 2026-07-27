@@ -152,6 +152,15 @@ public class ICSServlet extends HttpServlet {
                                     if (cfg.getSuhoorWDAlert() == 1 && prayer.isWhiteDay()) {
                                         needSuhoorAlert = 1;
                                     }
+                                    if (cfg.getSuhoorSDAlert() == 1 && prayer.isSunnahFastingDay()) {
+                                        needSuhoorAlert = 1;
+                                    }
+                                    if (cfg.getSuhoorRamadanAlert() == 1 && prayer.isRamadan()) {
+                                        needSuhoorAlert = 1;
+                                    }
+                                    if (needSuhoorAlert == 1 && prayer.isForbiddenFastingDay()) {
+                                        needSuhoorAlert = 0;
+                                    }
                                     if (cfg.getSuhoorAlert() == 1) {
                                         needSuhoorAlert = 1;
                                     }

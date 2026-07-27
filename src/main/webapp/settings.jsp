@@ -185,7 +185,7 @@
 			</div>
 			<div class="d-flex w-100 justify-content-within">
 				<label>Suhoor</label>
-				<input name="so" id="so" type="range" class="custom-range" min="-90" max="5" step="5" value="<%=cfg.getSuhoorOffset()%>" oninput="setSliderValue('so')">
+				<input name="so" id="so" type="range" class="custom-range" min="-90" max="20" step="5" value="<%=cfg.getSuhoorOffset()%>" oninput="setSliderValue('so')">
 				<label><span class="so-value">0</span>&nbsp;mins.</label>
 			</div>
 
@@ -332,6 +332,26 @@
 				<div class="ml-auto">
 					<label class="toggle-switch-off">Off</label>
 					<input name="csuwd" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getSuhoorWDAlert()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Suhoor alert on Ramadan
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="csura" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getSuhoorRamadanAlert()%>">
+					<label class="toggle-switch-on">On</label>
+				</div>
+			</div>
+			<div class="pl-4 row">
+				<label class="pr-2">
+				  Suhoor alert on Sunnah fasting days (Ashura, Arafah, Shawwal)
+				</label>
+				<div class="ml-auto">
+					<label class="toggle-switch-off">Off</label>
+					<input name="csusd" type="range" class="custom-range toggle-switch" min="0" max="1" step="1" value="<%=cfg.getSuhoorSDAlert()%>">
 					<label class="toggle-switch-on">On</label>
 				</div>
 			</div>
@@ -602,6 +622,8 @@
 		setSliderValue('csu');
         setSliderValue('csumt');
         setSliderValue('csuwd');
+        setSliderValue('csura');
+        setSliderValue('csusd');
 
 	</script>
 
