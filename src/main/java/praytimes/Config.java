@@ -75,6 +75,8 @@ public class Config {
 	public static final String SUHOOR_ALERT = "csu"; // int
 	public static final String SUHOOR_MT_ALERT = "csumt"; // int
 	public static final String SUHOOR_WD_ALERT = "csuwd"; // int
+	public static final String SUHOOR_SD_ALERT = "csusd"; // int
+	public static final String SUHOOR_RAMADAN_ALERT = "csura"; // int
 	public static final String SUNSET_SHOW = "ss"; // int
 	public static final String SUNRISE_SHOW = "srs"; // int
 	public static final String QIYAM_SHOW = "qs"; // int
@@ -120,6 +122,8 @@ public class Config {
 		DEFAULTS.put(SUHOOR_ALERT, 0);
 		DEFAULTS.put(SUHOOR_MT_ALERT, 0);
 		DEFAULTS.put(SUHOOR_WD_ALERT, 0);
+		DEFAULTS.put(SUHOOR_SD_ALERT, 0);
+		DEFAULTS.put(SUHOOR_RAMADAN_ALERT, 0);
 		DEFAULTS.put(SUNSET_SHOW, 1);
 		DEFAULTS.put(SUNRISE_SHOW, 1);
 		DEFAULTS.put(QIYAM_SHOW, 1);
@@ -189,6 +193,8 @@ public class Config {
 		setSuhoorAlert(getSuhoorAlert());
 		setSuhoorMTAlert(getSuhoorMTAlert());
 		setSuhoorWDAlert(getSuhoorWDAlert());
+		setSuhoorSDAlert(getSuhoorSDAlert());
+		setSuhoorRamadanAlert(getSuhoorRamadanAlert());
 		setSunsetShow(getSunsetShow());
 		setSunriseShow(getSunriseShow());
 		setQiyamShow(getQiyamShow());
@@ -487,6 +493,24 @@ public class Config {
 
 	private Config setSuhoorWDAlert(Integer value) {
 		params.put(SUHOOR_WD_ALERT, value);
+		return this;
+	}
+
+	public Integer getSuhoorSDAlert() {
+		return params.getInteger(SUHOOR_SD_ALERT);
+	}
+
+	private Config setSuhoorSDAlert(Integer value) {
+		params.put(SUHOOR_SD_ALERT, value);
+		return this;
+	}
+
+	public Integer getSuhoorRamadanAlert() {
+		return params.getInteger(SUHOOR_RAMADAN_ALERT);
+	}
+
+	private Config setSuhoorRamadanAlert(Integer value) {
+		params.put(SUHOOR_RAMADAN_ALERT, value);
 		return this;
 	}
 
